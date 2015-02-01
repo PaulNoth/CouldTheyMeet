@@ -4,7 +4,7 @@ import java.util.{Calendar, GregorianCalendar, Date}
  * Created by paulp on 1/31/15.
  */
 object Main extends App {
-  val file = io.Source.fromFile("data/sample_persondata_en.ttl")
+  val file = io.Source.fromFile("data/sample_input_persondata_en.ttl")
   val lines = file.getLines.toList.drop(1)
   val lines2 = lines.map(_.replaceAll("[<>]", "")).groupBy(_.split("\\s+").apply(0))
   lines2.foreach {
@@ -30,7 +30,12 @@ object Main extends App {
 
   file.close
 
-  //val persons = lines5.map()
+  val persons = lines5.map(toPerson(_))
+  persons.foreach {
+    line => println(line)
+  }
+
+
 
   def filterPersonData(s: String) =
   {
@@ -55,16 +60,37 @@ object Main extends App {
     Tuple2(el1, el2)
   }
 
- // def toPerson(a: (String, Map[String, String])) = {
-   // val elem1 = a._1
-   // val elem2 = a._2
-   // val name = elem2.getOrElse("name", "")
-    //val surname = elem2.getOrElse("surname", "")
-    //val givenName = elem2.getOrElse("givenName", "")
-    //val birthDate = elem2.getOrElse("birthDate", "1.1.2001")
-    //val deathDate = elem2.getOrElse("deathDate", "31.12.9999")
-    //Person(elem1)
-  //}
+  def toPerson(a: (String, Map[String, String])) = {
+    val elem1 = a._1
+    val elem2 = a._2
+    val name = elem2.getOrElse("name", "")
+    val surname = elem2.getOrElse("surname", "")
+    val givenName = elem2.getOrElse("givenName", "")
+    val birthDate = elem2.getOrElse("birthDate", "0001-01-01")
+    val deathDate = elem2.getOrElse("deathDate", "9999-12-31")
+    val description = elem2.getOrElse("description", "")
+    Person(elem1, name, surname, givenName, description, birthDate, deathDate)
+  }
 
   private val DefaultDeathDate: Date =  new GregorianCalendar(9999, Calendar.JANUARY, 1).getTime
+
+  private[this] val XmlDateYMDRegex = "\\-?\\d+\\-\\d{1,2}\\-\\d{1,2}"
+
+  private[this] val XmlDateYRegex = "\\-?\\d+"
+
+  def optimizeBirthDate(xmlDate: String) =
+  {
+    if(!xmlDate.matches(XmlDateYMDRegex))
+    {
+      xmlDate + "01-01"
+    }
+  }
+
+  def optimizeDeathDate(xmlDate: String) =
+  {
+    if(!xmlDate.matches(XmlDateYMDRegex))
+    {
+      xmlDate + "12-31"
+    }
+  }
 }
