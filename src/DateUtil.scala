@@ -1,42 +1,26 @@
-import java.text.{SimpleDateFormat, DateFormat}
-import java.util.Date
+import java.text.{ParseException, SimpleDateFormat, DateFormat}
+import java.util.{Calendar, GregorianCalendar, Date}
 
 /**
  * Created by paulp on 2/1/15.
  */
 object DateUtil {
-  private[this] val XML_DATE_PATTERN = "GGyyyy-MM-dd"
+
+  private[this] val XML_DATE_PATTERN = "yyyy-MM-dd"
   private[this] val dateFormatter: DateFormat = new SimpleDateFormat(XML_DATE_PATTERN)
-  private[this] val XmlDateRegex = "\\-?\\d+\\-\\d{1,2}\\-\\d{1,2}"
 
-  def parseDate(s: String): Date =
-  {
-    // TODO
-    //if(isRequiredXmlDateFormat(s))
+  def parseDate(s: String): Date = {
+    try {
       dateFormatter.parse(s)
-    //new Date
+    } catch {
+      case parseEx: ParseException =>
+        println("unknown format: " + s)
+        new Date
+    }
   }
 
-  def isRequiredXmlDateFormat(s: String) =
+  def format(date: Date) =
   {
-    s.matches(XmlDateRegex)
-  }
-
-  private[this] def isBc(xmlDate: String) =
-    xmlDate.startsWith("-")
-
-  private[this] def updateToFormatterPattern(s: String): String =
-  {
-    var result = s
-
-    result = prefixWithEra(result)
-    result
-  }
-
-  private[this] def prefixWithEra(date: String): String = {
-    if(isBc(date))
-      date.replace("-", "BC")
-    else
-      "AD" + date
+    new SimpleDateFormat("dd.MM.yyyy GG").format(date)
   }
 }
