@@ -1,3 +1,5 @@
+import java.util.{Calendar, GregorianCalendar, Date}
+
 /**
  * Created by paulp on 1/31/15.
  */
@@ -14,17 +16,55 @@ object Main extends App {
     line => println(line)
   }
 
-  val lines4 = lines2.mapValues(_.filter(filterPersonData(_)).map(_.split("[^\\s]+").toList).flatten )
+  val lines4 = lines2.mapValues(_.filter(filterPersonData(_)).map(s => s.substring(0, s.lastIndexOf("\"") + 1).split("\\s+", 2).toList.drop(1) ).flatten )
 
   lines4.foreach {
     line => println(line)
   }
 
+  val lines5 = lines4.mapValues(_.map(s => s.splitAt(s.indexOf(" ")) ).map(parseProperties(_)) ).mapValues(_.toMap)
+
+  lines5.foreach {
+    line => println(line)
+  }
+
   file.close
+
+  //val persons = lines5.map()
 
   def filterPersonData(s: String) =
   {
     val lower = s.toLowerCase
-    lower.contains("birthdate") || lower.contains("deathdate") || lower.contains("name") || lower.contains("surname") || lower.contains("givenname") || lower.contains("description") || lower.contains("birthplace")
+    lower.contains("birthdate") || lower.contains("deathdate") || lower.contains("name") || lower.contains("surname") || lower.contains("givenname") || lower.contains("description") // || lower.contains("birthplace")
   }
+
+  /**
+   * ignores first http resource from dbpedia
+   * @param s
+   * @return
+   */
+  def ignoreResource(s: String) =
+  {
+    s.dropWhile(!_.isWhitespace).trim
+  }
+
+  def parseProperties(a: (String, String))=
+  {
+    val el1 = a._1.substring(a._1.lastIndexOf("/") + 1, a._1.length)
+    val el2 = a._2.replaceAll("\"", "")
+    Tuple2(el1, el2)
+  }
+
+ // def toPerson(a: (String, Map[String, String])) = {
+   // val elem1 = a._1
+   // val elem2 = a._2
+   // val name = elem2.getOrElse("name", "")
+    //val surname = elem2.getOrElse("surname", "")
+    //val givenName = elem2.getOrElse("givenName", "")
+    //val birthDate = elem2.getOrElse("birthDate", "1.1.2001")
+    //val deathDate = elem2.getOrElse("deathDate", "31.12.9999")
+    //Person(elem1)
+  //}
+
+  private val DefaultDeathDate: Date =  new GregorianCalendar(9999, Calendar.JANUARY, 1).getTime
 }
