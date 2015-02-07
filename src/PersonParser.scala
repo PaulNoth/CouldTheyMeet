@@ -23,7 +23,7 @@ object PersonParser {
 
       val linesWithPersonData = lines.filter(filterPersonData)
       val withoutBrackets = linesWithPersonData.map(_.replaceAll("[<>]", ""))
-      val data = withoutBrackets.map(mapKeyValues).toStream.groupBy(_._1).mapValues(_.map(_._2).toMap)
+      val data = withoutBrackets.map(mapKeyValues).toStream.view.groupBy(_._1).mapValues(_.map(_._2).toMap)
       data
     }
 
@@ -36,11 +36,11 @@ object PersonParser {
     }
 
     private def mapKeyValues(line: String): (String, (String, String)) = {
-      val tuple = line.splitAt(line.indexOf(' '))
+      val tuple = line.replaceAll("[,;]", "\\|").splitAt(line.indexOf(' '))
       val resource = tuple._1
       val res2 = tuple._2.trim
       val tuple2 = res2.trim.splitAt(res2.indexOf(' '))
-      val keyValue1 = tuple2._1.substring(tuple2._1.lastIndexOf('/') + 1, tuple2._1.length)
+      val keyValue1 = tuple2._1.substring(tuple2._1.lastIndexOf('/') + 1, tuple2._1.length).intern()
       val keyValue2 = tuple2._2.substring(tuple2._2.indexOf('"') + 1, tuple2._2.lastIndexOf('"'))
       Tuple2(resource, Tuple2(keyValue1, keyValue2))
     }
