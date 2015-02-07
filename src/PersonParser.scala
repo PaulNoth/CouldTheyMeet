@@ -1,3 +1,5 @@
+import eu.pidanic.couldmeet.search.Person
+
 /**
  * Created by paulp on 2/7/15.
  */

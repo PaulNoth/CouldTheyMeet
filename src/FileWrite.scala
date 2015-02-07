@@ -1,23 +1,13 @@
 import java.io.{File, FileWriter}
 
+import eu.pidanic.couldmeet.search.Person
+
 /**
  * Created by paulp on 2/3/15.
  */
 object FileWrite {
 
   private[this] val outFileName = new File("data" + File.separator + "sample_output.csv")
-
-  def write(persons: List[Person]): Unit =  {
-    val fileWriter = new FileWriter(outFileName)
-
-    persons.foreach { person =>
-      val line = person.resource + "," + person.name + "," + person.surname + "," + person.givenName + "," + person.description + "," + person.birthDate + "," + person.deathDate
-      fileWriter.write(line + "\n")
-    }
-
-    fileWriter.flush()
-    fileWriter.close()
-  }
 
   def write(data: Map[String, Map[String, String]]): Unit = {
     val fileWriter = new FileWriter(outFileName)
@@ -42,7 +32,7 @@ object FileWrite {
     val birthDate = personProperties.getOrElse("birthDate", "")
     val deathDate = personProperties.getOrElse("deathDate", "")
 
-    val outLine = resource + "," + name + "," + surname + "," + givenName + "," + description + "," + birthDate + "," + deathDate + "\n"
+    val outLine = resource + "," + name + "," + surname + "," + givenName + "," + description + "," + birthDate + "," + deathDate + ",\n"
     outLine
   }
 }
