@@ -25,12 +25,12 @@ object FileWrite {
   private def createOutputLine(personData: (String, Map[String, String])): String = {
     val resource = personData._1.trim
     val personProperties = personData._2
-    val name = personProperties.getOrElse("name", "")
-    val givenName = personProperties.getOrElse("givenName", "")
-    val surname = personProperties.getOrElse("surname", "")
-    val description = personProperties.getOrElse("description", "")
-    val birthDate = personProperties.getOrElse("birthDate", "")
-    val deathDate = personProperties.getOrElse("deathDate", "")
+    val name = personProperties.getOrElse("name", "...")
+    val givenName = personProperties.getOrElse("givenName", "...")
+    val surname = personProperties.getOrElse("surname", "...")
+    val description = personProperties.getOrElse("description", "...")
+    val birthDate = personProperties.getOrElse("birthDate", "...")
+    val deathDate = personProperties.getOrElse("deathDate", "...")
 
     val outLine = resource + "," + name + "," + surname + "," + givenName + "," + description + "," + birthDate + "," + deathDate + ",\n"
     outLine
