@@ -29,12 +29,10 @@ class Search {
     val indexWriter = new IndexWriter(directory, indexConfig)
 
     val lines = file.getLines()
+
     lines.foreach {
       line =>
-        println(line)
         val words = line.split(",")
-        println(words.toList.size)
-        println(words.toList)
         val document = new Document
 
         document.add(new Field("name", words(1), TextField.TYPE_STORED))
@@ -60,24 +58,18 @@ class Search {
     val topDocs = indexSearcher.search(query, 50)
     val hits = topDocs.scoreDocs
 
-    val result: ListBuffer[Person] = scala.collection.mutable.ListBuffer.empty
-    hits.foreach {
-      hit =>
-        val hitDoc = indexSearcher.doc(hit.doc)
-        val name = hitDoc.get("name")
-        val surname = hitDoc.get("surname")
-        val givenname = hitDoc.get("givenname")
-        val desc = hitDoc.get("description")
-        val birthDate = hitDoc.get("birthdate")
-        val deathdate = hitDoc.get("deathdate")
-        val person = Person(name, surname, givenname, desc, birthDate, deathdate)
-
-        result.+=(person)
-
-    }
-
+    val persons = hits.map(scoreDoc => documentToPerson(indexSearcher.doc(scoreDoc.doc))).toList
     dirReader.close()
+    persons
+  }
 
-    result
+  private def documentToPerson(doc: Document): Person = {
+    val name = doc.get("name")
+    val surname = doc.get("surname")
+    val givenname = doc.get("givenname")
+    val desc = doc.get("description")
+    val birthDate = doc.get("birthdate")
+    val deathdate = doc.get("deathdate")
+    Person(name, surname, givenname, desc, birthDate, deathdate)
   }
 }
