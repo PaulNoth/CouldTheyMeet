@@ -1,15 +1,14 @@
-package eu.pidanic.couldmeet.search
+package src
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer
-import org.apache.lucene.document.{TextField, Field, Document}
+import org.apache.lucene.document.{Document, Field, TextField}
 import org.apache.lucene.index.{DirectoryReader, IndexWriter, IndexWriterConfig}
 import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.RAMDirectory
 import org.apache.lucene.util.Version
 
-import scala.collection.mutable.ListBuffer
-
+import scala.io.Source
 /**
  * Created by paulp on 2/7/15.
  */
@@ -23,7 +22,7 @@ class Search {
   initializeDictionaryData()
 
   def initializeDictionaryData() = {
-    val file = io.Source.fromFile(PATH)
+    val file = Source.fromFile(PATH)
 
     val indexConfig = new IndexWriterConfig(Version.LATEST, analyzer)
     val indexWriter = new IndexWriter(directory, indexConfig)

@@ -1,4 +1,4 @@
-package eu.pidanic.couldmeet.search
+package src
 
 /**
  * Created by paulp on 2/1/15.

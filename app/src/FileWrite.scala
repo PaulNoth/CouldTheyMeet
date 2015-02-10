@@ -1,6 +1,6 @@
-import java.io.{File, FileWriter}
+package src
 
-import eu.pidanic.couldmeet.search.Person
+import java.io.{FileWriter, File}
 
 /**
  * Created by paulp on 2/3/15.

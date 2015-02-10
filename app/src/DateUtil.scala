@@ -1,5 +1,7 @@
+package src
+
 import java.text.{ParseException, SimpleDateFormat, DateFormat}
-import java.util.{Calendar, GregorianCalendar, Date}
+import java.util.Date
 
 /**
  * Created by paulp on 2/1/15.

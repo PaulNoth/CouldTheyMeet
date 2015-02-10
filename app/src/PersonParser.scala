@@ -1,4 +1,5 @@
-import eu.pidanic.couldmeet.search.Person
+package src
+
 
 /**
  * Created by paulp on 2/7/15.
@@ -10,6 +11,9 @@ trait PersonParser {
   def getPersonData: Map[String, Map[String, String]]
 }
 
+/**
+ * Created by paulp on 2/10/15.
+ */
 object PersonParser {
 
   private[this] class PersonParserImpl(private val fileName: String) extends PersonParser {
@@ -20,7 +24,7 @@ object PersonParser {
     }
 
     override def getPersonData: Map[String, Map[String, String]] = {
-      val file = io.Source.fromFile(fileName)
+      val file = scala.io.Source.fromFile(fileName)
       val lines = file.getLines().drop(1)
 
       val linesWithPersonData = lines.filter(filterPersonData)
