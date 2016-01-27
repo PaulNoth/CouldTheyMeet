@@ -1,6 +1,4 @@
-package src
-
-import java.text.{ParseException, SimpleDateFormat, DateFormat}
+import java.text.{DateFormat, ParseException, SimpleDateFormat}
 import java.util.Date
 
 /**

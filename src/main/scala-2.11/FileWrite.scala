@@ -1,6 +1,4 @@
-package src
-
-import java.io.{FileWriter, File}
+import java.io.{File, FileWriter}
 
 /**
  * Created by paulp on 2/3/15.

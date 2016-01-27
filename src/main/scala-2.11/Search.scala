@@ -1,13 +1,3 @@
-package src
-
-import org.apache.lucene.analysis.standard.StandardAnalyzer
-import org.apache.lucene.document.{Document, Field, TextField}
-import org.apache.lucene.index.{DirectoryReader, IndexWriter, IndexWriterConfig}
-import org.apache.lucene.queryparser.classic.QueryParser
-import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.store.RAMDirectory
-import org.apache.lucene.util.Version
-
 import scala.io.Source
 /**
  * Created by paulp on 2/7/15.
