@@ -2,6 +2,10 @@ package com.pidanic.meet
 
 import java.io.File
 
+import com.pidanic.meet.util.FileUtil
+
+import scala.io.Source
+
 trait PersonParser {
   def writeToCsv(fileName: String): Unit
   def writeToCsv(fileName: String, headerColumns: List[String]): Unit
@@ -11,8 +15,11 @@ object PersonParser {
 
   private class NqParser(private val file: File) extends PersonParser {
 
-    require(file)
-    private lazy val nqfile: File = file
+    require(FileUtil.getExtension(file) == "nq")
+
+    private val nqfile: File = file
+    private lazy val lines: Iterator[String] = Source.fromFile(nqfile).getLines.drop(1)
+
 
     def this(fileName: String) {
       this(new File(fileName))
