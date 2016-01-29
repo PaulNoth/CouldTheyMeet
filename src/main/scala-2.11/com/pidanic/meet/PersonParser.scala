@@ -1,26 +1,45 @@
-/**
- * Created by paulp on 2/7/15.
- */
+package com.pidanic.meet
+
+import java.io.File
+
 trait PersonParser {
-
-  def getPersons: List[Person]
-
-  def getPersonData: Map[String, Map[String, String]]
+  def writeToCsv(fileName: String): Unit
+  def writeToCsv(fileName: String, headerColumns: List[String]): Unit
 }
 
-/**
- * Created by paulp on 2/10/15.
- */
 object PersonParser {
 
-  private[this] class PersonParserImpl(private val fileName: String) extends PersonParser {
+  private class NqParser(private val file: File) extends PersonParser {
 
-    override def getPersons: List[Person] = {
-      // TODO
-      List.empty
+    require(file)
+    private lazy val nqfile: File = file
+
+    def this(fileName: String) {
+      this(new File(fileName))
     }
 
-    override def getPersonData: Map[String, Map[String, String]] = {
+    override def writeToCsv(fileName: String): Unit = {
+
+    }
+
+    override def writeToCsv(fileName: String, headerColumns: List[String]): Unit = {
+
+    }
+  }
+
+  def fromNqFile(filename: String): PersonParser = {
+    new NqParser(filename)
+  }
+
+  def fromNqFile(file: File): PersonParser = {
+    new NqParser(file)
+  }
+
+  private[this] class PersonParserImpl(private val fileName: String) {
+
+
+
+    def getPersonData: Map[String, Map[String, String]] = {
       val file = scala.io.Source.fromFile(fileName)
       val lines = file.getLines().drop(1)
 
@@ -49,7 +68,4 @@ object PersonParser {
     }
   }
 
-  def fromFile(fileName: String): PersonParser = {
-    new PersonParserImpl(fileName)
-  }
 }

@@ -1,3 +1,5 @@
+package com.pidanic.meet
+
 /**
  * Created by paulp on 1/31/15.
  */
