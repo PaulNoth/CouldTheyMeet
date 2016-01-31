@@ -1,9 +1,8 @@
-package com.pidanic.meet
+package com.pidanic.meet.util
 
 import java.io.File
 
-import com.pidanic.meet.util.FileUtil
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.{FlatSpec, Matchers}
 
 class FileUtilTest extends FlatSpec with Matchers {
 
