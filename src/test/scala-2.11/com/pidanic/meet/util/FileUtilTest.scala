@@ -30,7 +30,7 @@ class FileUtilTest extends FlatSpec with Matchers {
     FileUtil.getExtension(new File("sample")) should be ("")
   }
 
-  "File extension" should "be in lowercase" in {
+  it should "return the extension in lowercase" in {
     FileUtil.getExtension(new File("sample.TxT")) should be ("txt")
   }
 }
