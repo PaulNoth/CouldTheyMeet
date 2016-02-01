@@ -55,4 +55,11 @@ class PersonParserTest extends FlatSpec with Matchers {
         Stream(("http://dbpedia.org/resource/Abraham_Lincoln", ("name", "Abraham Lincoln"))))) should be(
       Person("http://dbpedia.org/resource/Abraham_Lincoln", "Abraham Lincoln", "", "", "", "", ""))
   }
+
+  it should "parse all person data" in {
+    val personParser = new NqParser(testFile)
+    val parsedPerson = Person("http://dbpedia.org/resource/Abraham_Lincoln",
+      "Abraham Lincoln", "Lincoln", "Abraham", "16th President of the United States", "1809-02-12", "1865-04-15")
+    personParser.parsePersons().toList should be (List(parsedPerson))
+  }
 }

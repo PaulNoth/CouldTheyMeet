@@ -7,7 +7,7 @@ import com.pidanic.meet.util.FileUtil
 import scala.io.Source
 
 trait PersonParser {
-  def parsePersons(fileName: String): Iterator[Person]
+  def parsePersons(): Iterator[Person]
 }
 
 object PersonParser {
@@ -29,7 +29,7 @@ object PersonParser {
       lines.filter(line => relevantProperties.exists(line.contains(_)))
     }
 
-    override def parsePersons(fileName: String): Iterator[Person] = {
+    override def parsePersons(): Iterator[Person] = {
       val relevantLines = filterRelevantLines()
       val withoutBrackets = relevantLines.map(_.replaceAll("[<>]", ""))
       val properties = withoutBrackets.map(parseProperties)
