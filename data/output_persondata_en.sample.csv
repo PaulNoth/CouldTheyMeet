@@ -1,0 +1,10 @@
+resource;name;surname;givenName;description;birthDate;deathDate
+http://dbpedia.org/resource/Allan_Dwan;Allan Dwan;Dwan;Allan;Film director, film producer, screenwriter;1885-04-03;1981-12-28
+http://dbpedia.org/resource/Aristotle;Aristotle;;;Greek philosopher;-0384;-0322
+http://dbpedia.org/resource/Abraham_Lincoln;Abraham Lincoln;Lincoln;Abraham;16th President of the United States;1809-02-12;1865-04-15
+http://dbpedia.org/resource/Alain_Connes;Alain Connes;Connes;Alain;Mathematician;1947-04-01;
+http://dbpedia.org/resource/Ayn_Rand;Ayn Rand;Rand;Ayn;Novelist, philosopher, playwright, screenwriter;1905-02-02;1982-03-06
+http://dbpedia.org/resource/Andre_Agassi;Andre Agassi;Agassi;Andre;American tennis player;1970-04-29;
+http://dbpedia.org/resource/Aldous_Huxley;Aldous Leonard Huxley;Huxley;Aldous Leonard;Writer; author;1894-07-26;1963-11-22
+http://dbpedia.org/resource/Andrei_Tarkovsky;Andrei Tarkovsky;Tarkovsky;Andrei;Film director;1932-04-04;1986-12-29
+http://dbpedia.org/resource/Arthur_Schopenhauer;Arthur Schopenhauer;Schopenhauer;Arthur;German philosopher;1788-02-22;1860-09-21
