@@ -13,7 +13,7 @@ private[parser] sealed case class Person
   require(birthDate != null)
   require(deathDate != null)
 
-  def toCsvString(separator: Char): String = {
+  def toCsvString(separator: String): String = {
     resource + "" + separator + "" +
       name + "" + separator + "" +
       surname + "" + separator + "" +
