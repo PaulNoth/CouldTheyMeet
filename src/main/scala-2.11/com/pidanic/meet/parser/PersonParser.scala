@@ -12,7 +12,7 @@ trait PersonParser {
 
 object PersonParser {
 
-  private[parser] val relevantProperties = List("name", "surname", "givenName", "description", "birthDate", "deathDate")
+  private[parser] val relevantProperties = List("/name", "/surname", "/givenName", "/description", "/birthDate", "/deathDate")
 
   private[parser] class NqParser(private val file: File) extends PersonParser {
 
@@ -39,13 +39,20 @@ object PersonParser {
     }
 
     def parseProperties(line: String) = {
-      val splitsByFirstSpace = line.splitAt(line.indexOf(' '))
-      val key = splitsByFirstSpace._1.trim
-      val part2 = splitsByFirstSpace._2.trim
-      val propertyKeyValue = ignoreEverythingAfterLastQuote(part2).splitAt(part2.indexOf(' '))
-      val propertyKey = parseKey(propertyKeyValue._1.trim)
-      val propertyValue = removeQuotes(parseValue(propertyKeyValue._2.trim))
-      Tuple2(key, Tuple2(propertyKey, propertyValue))
+      try {
+        val splitsByFirstSpace = line.splitAt(line.indexOf(' '))
+        val key = splitsByFirstSpace._1.trim
+        val part2 = splitsByFirstSpace._2.trim
+        val propertyKeyValue = ignoreEverythingAfterLastQuote(part2).splitAt(part2.indexOf(' '))
+        val propertyKey = parseKey(propertyKeyValue._1.trim)
+        val propertyValue = removeQuotes(parseValue(propertyKeyValue._2.trim))
+        Tuple2(key, Tuple2(propertyKey, propertyValue))
+      } catch {
+        case e: Exception => {
+          println(line)
+          Tuple2("", Tuple2("", ""))
+        }
+      }
     }
 
     def toPerson(map: (String, Stream[(String, (String, String))])): Person = {
